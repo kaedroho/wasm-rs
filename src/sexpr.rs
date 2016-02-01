@@ -16,12 +16,6 @@ pub struct Node {
     pub elements: Vec<NodeElement>,
 }
 
-impl Node {
-    fn new() -> Node {
-        Node::default()
-    }
-}
-
 #[derive(Debug, Default)]
 pub struct SExpressionParser {
     parsing_text_element: Option<String>,
@@ -32,10 +26,6 @@ pub struct SExpressionParser {
 }
 
 impl SExpressionParser {
-    pub fn new() -> SExpressionParser {
-        SExpressionParser::default()
-    }
-
     fn finish_parsing_text_element(&mut self) -> Result<(), SExpressionParseError> {
         if let Some(text_element) = self.parsing_text_element.take() {
             match self.stack.last_mut() {
@@ -71,7 +61,7 @@ impl SExpressionParser {
         match c {
             '(' => {  // Node start
                 // Make new node
-                self.stack.push(Node::new());
+                self.stack.push(Node::default());
             }
             ')' => {  // Node end
                 // Finish text element if we're parsing one
@@ -136,7 +126,7 @@ impl SExpressionParser {
 }
 
 pub fn parse(string: &str) -> Result<Vec<Node>, SExpressionParseError> {
-    let mut parser = SExpressionParser::new();
+    let mut parser = SExpressionParser::default();
 
     for c in string.chars() {
         try!(parser.feed_char(c));
