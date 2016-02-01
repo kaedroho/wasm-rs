@@ -1,19 +1,19 @@
 #[derive(Debug, PartialEq)]
-enum SExpressionParseError {
+pub enum SExpressionParseError {
     UnexpectedText,
     UnexpectedCloseBracket,
     UnclosedBracket,
 }
 
 #[derive(Debug, PartialEq)]
-enum NodeElement {
+pub enum NodeElement {
     Text(String),
     Node(Node),
 }
 
 #[derive(Debug, Default, PartialEq)]
-struct Node {
-    elements: Vec<NodeElement>,
+pub struct Node {
+    pub elements: Vec<NodeElement>,
 }
 
 impl Node {
@@ -135,8 +135,7 @@ impl SExpressionParser {
     }
 }
 
-#[cfg(test)]
-fn parse(string: &str) -> Result<Vec<Node>, SExpressionParseError> {
+pub fn parse(string: &str) -> Result<Vec<Node>, SExpressionParseError> {
     let mut parser = SExpressionParser::new();
 
     for c in string.chars() {

@@ -242,11 +242,7 @@ fn main() {
     (assert_return (invoke \"i64_load32_s\" (i64.const 20000)) (i64.const 20000))
     (assert_return (invoke \"i64_load32_u\" (i64.const 40000)) (i64.const 40000))";
 
-    let mut parser = sexpr::SExpressionParser::new();
+    let parsed = sexpr::parse(example);
 
-    for c in example.chars() {
-        parser.feed_char(c);
-    }
-
-    println!("{:?}", parser);
+    println!("{:?}", parsed);
 }
